@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#3e5062",
+    "navigationBarTitleText": "科学脱口秀",
+    "navigationBarTextStyle": "white"
+  }
+}
