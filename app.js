@@ -1,39 +1,41 @@
-//app.js
-App({
-  onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+let observer = require('./libs/observer').observer;
+let stores = require('./store/store');
+const Towxml = require('/towxml/main');
+let {currentMode, MODE} = require('./constants/API');
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+if (currentMode === MODE.ONLINE) {
+    console.log = () => {
+    };
+    console.warn = () => {
+    };
+    console.error = () => {
+    };
+    console.debug = () => {
+    };
+    console.info = () => {
+    };
+    console.time = () => {
+    };
+    console.timeEnd = () => {
+    };
+}
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
-  },
-  globalData: {
-    userInfo: null
-  }
-})
+App(observer({
+    towxml: new Towxml(),
+    globalData: {
+        ...stores
+    },
+    onLaunch: function () {
+        console.log('onLaunch');
+        this.globalData.user.authUser();
+        this.globalData.user.getUserInfo();
+        this.globalData.index.countAll();
+        this.globalData.index.programmePage({page: 1});
+    },
+    onShow: () => {
+        console.log('onShow')
+    },
+    onHide: () => {  // 当小程序从前台进入后台
+        console.log('onHide')
+    },
+}));

@@ -1,13 +1,40 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+<import src="/towxml/entry.wxml"/>
+<toast hidden="{{!showWelcome}}" icon="success" bindchange="hideWelcome">
+  欢迎回来 {{props.user.userInfo.nickName}}
+</toast>
+
+<scroll-view
+        class="container"
+        scroll-y="true"
+        bindscrolltolower="loadMore"
+        enable-back-to-top="true"
+        scroll-with-animation="true">
+  <view class="header">
+    <image class="header-img" src='../../assets/index_logo.png'></image>
+    <view class="header-count">节目总数：{{props.index.allCount}}</view>
+  </view>
+  <view class="programmes">
+    <block wx:for="{{props.index.programmeList}}" wx:key="{{item._id}}">
+      <navigator class="programme-item">
+        <view class="programme-header">
+          <view class="title">
+            <image class="icon" src="../../assets/{{item.type}}.png"></image>
+            <view class="title-text">{{item.title}}</view>
+          </view>
+          <view class="categories">{{item.categories}}</view>
+        </view>
+        <!--<template class="programme-content" is="entry" data="{{...item.summary}}"/>-->
+        <view class="programme-content">
+          {{item.summary || '这里没啥描述'}}
+        </view>
+      </navigator>
     </block>
+    <view wx:if="{{isLoading}}" class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">撒节操中</view>
+    </view>
+    <view wx:else class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{errorMsg ? errorMsg : '节操满地'}}</view>
+    </view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-</view>
+</scroll-view>
