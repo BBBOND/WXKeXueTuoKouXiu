@@ -1,0 +1,23 @@
+@import "../../components/mediaController/mediaController.wxss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 128rpx;
+}
+
+.container .title {
+    color: #282828;
+    font-size: 36rpx;
+    padding: 0 20rpx;
+    margin-top: 36rpx;
+    font-weight: bold;
+}
+
+.container .des {
+    color: #494949;
+    font-size: 32rpx;
+    padding: 0 20rpx;
+    margin-top: 6rpx;
+}

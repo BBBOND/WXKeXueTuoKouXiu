@@ -20,3 +20,7 @@ export const getCount = (query = '') => baseGetRequest(
 export const updateProfileReq = (id, profile) => basePostRequest(
   API.API_UPDATE_PROFILE, {id, profile}
 );
+
+export const getProgrammeReq = (id) => baseGetRequest(
+    API.API_PROGRAMME, {id}
+);

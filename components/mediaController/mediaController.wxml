@@ -1,0 +1,12 @@
+<view class="controller" hidden="{{!mediaController.visible && props.index.currentProgramme}}">
+    <view class="controller-des">
+        <view class="controller-title">{{mediaController.title || props.index.currentProgramme.title || ''}}</view>
+        <view class="controller-duration">{{mediaController.author || props.index.currentProgramme.author || ''}} {{mediaController.duration || props.index.currentProgramme.duration || ''}}</view>
+    </view>
+    <view class="controller-option" bindtap="__clickController">
+        <image wx:if="{{props.index.playState === 0 || props.index.playState === -1 || props.index.playState === 3}}" src="/assets/play.png"/>
+        <image wx:elif="{{props.index.playState === 1}}" src="/assets/pause.png"/>
+        <image class="rotate" wx:elif="{{props.index.playState === 2}}" src="/assets/loading.png"/>
+        <!--<image src="/assets/pause.png"/>-->
+    </view>
+</view>

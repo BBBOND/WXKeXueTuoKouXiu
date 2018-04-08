@@ -10,13 +10,14 @@ if (currentMode === MODE.LOCAL) {
     // domain = 'http://192.168.31.140:4001';
     domain = 'http://192.168.1.12:4001';
 } else if (currentMode === MODE.ONLINE) {
-    domain = 'http://www.bbbond.com:4001';
+    domain = 'https://one.bbbond.com/kxtkx';
 }
 
 export const API = {
     API_AUTH: `${domain}/auth`,
     API_COUNT: `${domain}/count?{query}`,
     API_SEARCH: `${domain}/search?search={search}&page={page}&size={size}&categories={categories}&type={type}&dateSort={dateSort}`,
+    API_PROGRAMME: `${domain}/programme?id={id}`,
     API_USERINFO: `${domain}/userInfo`,
     API_UPDATE_PROFILE: `${domain}/updateProfile`,
 };

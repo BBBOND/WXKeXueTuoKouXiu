@@ -1,7 +1,25 @@
+.container .nav {
+    height: 88rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-top: 44rpx;
+    background: #3e5062;
+    color: white;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+}
+
 .container .header {
-    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
     height: 227rpx;
-    margin-bottom: 10rpx;
 }
 
 .header .header-img {
@@ -21,6 +39,17 @@
     background-color: rgba(0,0,0,0.1);
     border-radius: 8rpx;
     padding: 8rpx 8rpx 4rpx 8rpx;
+}
+
+.container .refresh {
+    margin-bottom: 10rpx;
+    height: 44rpx;
+    margin-top: 183rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 24rpx;
 }
 
 .container .programmes {
@@ -61,8 +90,12 @@
 
 .title .title-text {
     font-size: 36rpx;
-    line-height: 36rpx;
     flex: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    font-weight: bold;
 }
 
 .programme-header .categories {
@@ -83,4 +116,8 @@
 
 .weui-loadmore__tips_in-line {
     background-color: #f2f2f2;
+}
+
+.container .loading {
+    color: #999;
 }

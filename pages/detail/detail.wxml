@@ -1,0 +1,8 @@
+<view class="container">
+    <view class="title">
+        {{programme.title}}
+    </view>
+    <rich-text class="des" nodes="{{programme.description}}"/>
+
+    <include src="../../components/mediaController/mediaController.wxml"></include>
+</view>

@@ -1,40 +1,34 @@
-<import src="/towxml/entry.wxml"/>
-<toast hidden="{{!showWelcome}}" icon="success" bindchange="hideWelcome">
-  欢迎回来 {{props.user.userInfo.nickName}}
-</toast>
-
-<scroll-view
-        class="container"
-        scroll-y="true"
-        bindscrolltolower="loadMore"
-        enable-back-to-top="true"
-        scroll-with-animation="true">
-  <view class="header">
-    <image class="header-img" src='../../assets/index_logo.png'></image>
-    <view class="header-count">节目总数：{{props.index.allCount}}</view>
-  </view>
-  <view class="programmes">
-    <block wx:for="{{props.index.programmeList}}" wx:key="{{item._id}}">
-      <navigator class="programme-item">
-        <view class="programme-header">
-          <view class="title">
-            <image class="icon" src="../../assets/{{item.type}}.png"></image>
-            <view class="title-text">{{item.title}}</view>
-          </view>
-          <view class="categories">{{item.categories}}</view>
-        </view>
-        <!--<template class="programme-content" is="entry" data="{{...item.summary}}"/>-->
-        <view class="programme-content">
-          {{item.summary || '这里没啥描述'}}
-        </view>
-      </navigator>
-    </block>
+<view class="container">
+    <!--<view class="nav">科学脱口秀</view>-->
+    <view class="header">
+        <image class="header-img" src='../../assets/index_logo.png'></image>
+        <view class="header-count">节目总数：{{props.index.count}}</view>
+    </view>
+    <view class="refresh loading">稍等一下，马上就好！</view>
+    <view class="programmes">
+        <block wx:for="{{props.index.programmeList}}" wx:key="{{item._id}}">
+            <navigator class="programme-item" url="/pages/detail/detail?id={{item._id}}">
+                <view class="programme-header">
+                    <view class="title">
+                        <image class="icon" src="../../assets/{{item.type}}.png"></image>
+                        <view class="title-text">{{item.title}}</view>
+                    </view>
+                    <view class="categories">{{item.categories}}</view>
+                </view>
+                <view class="programme-content">
+                    {{item.summary || '这里没啥描述'}}
+                </view>
+            </navigator>
+        </block>
+    </view>
     <view wx:if="{{isLoading}}" class="weui-loadmore">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">撒节操中</view>
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips loading">撒节操中</view>
     </view>
     <view wx:else class="weui-loadmore weui-loadmore_line">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{errorMsg ? errorMsg : '节操满地'}}</view>
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">{{errorMsg ? errorMsg : '节操满地'}}</view>
     </view>
-  </view>
-</scroll-view>
+    <toast hidden="{{!showWelcome}}" icon="success" bindchange="hideWelcome">
+        欢迎回来 {{props.user.userInfo.nickName}}
+    </toast>
+</view>
