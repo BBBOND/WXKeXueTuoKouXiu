@@ -1,15 +1,18 @@
 const regeneratorRuntime = require('../../libs/runtime');
 let observer = require('../../libs/observer').observer;
-let toJS = require('../../libs/mobx').toJS;
+let toJS = require('../../libs/mobx.min').toJS;
+let {combine} = require('../../libs/combine');
+let mediaController = require('../../components/mediaController/mediaController');
 const app = getApp();
 
-Page(observer({
+let page = {
     props: {
         index: app.globalData.index,
         user: app.globalData.user,
         refresh: app.globalData.index.refresh,
         loadMore: app.globalData.index.loadMore,
     },
+
     data: {
         showWelcome: false,
         isLoading: false,
@@ -23,32 +26,33 @@ Page(observer({
     hideWelcome: function () {
         this.setData({showWelcome: false});
     },
-    onReachBottom: async function (e) {
+
+    onReachBottom: async function () {
         if (!this.data.isLoading && this.props.index.currentPage <= this.props.index.totalPage) {
-            try {
+            app.doWithCatch(async () => {
                 this.setData({isLoading: true});
                 await this.props.loadMore({page: (this.props.index.currentPage + 1)});
-                this.setData({isLoading: false, errorMsg: ""});
-            } catch (e) {
+                this.setData({isLoading: false});
+            }, true, (e) => {
                 console.log(e);
-                this.setData({isLoading: false, errorMsg: e});
-            }
+                this.setData({isLoading: false});
+            });
         }
     },
+
     onPullDownRefresh: async function (e) {
-        try {
+        app.doWithCatch(async () => {
             await this.props.refresh({});
             setTimeout(wx.stopPullDownRefresh, 500);
-        } catch (e) {
-            wx.showToast({
-                title: '好像出了点问题',
-                icon: 'none'
-            })
-        }
+        }, true, () => {
+            setTimeout(wx.stopPullDownRefresh, 500);
+        });
     },
+
     onLoad: function () {
-        this.showWelcome();
-        this.props.refresh({});
+        app.doWithLoading(async () => {
+            await this.props.refresh({});
+        }, "稍等一下", true, undefined, this.showWelcome);
     },
 
     /**
@@ -71,4 +75,8 @@ Page(observer({
             }
         }
     }
-}));
+};
+
+combine(page, mediaController);
+
+Page(observer(page));

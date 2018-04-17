@@ -1,4 +1,4 @@
-var mobx = require('./mobx');
+var mobx = require('./mobx.min');
 var autorun = mobx.autorun;
 var observable = mobx.observable;
 var action = mobx.action;

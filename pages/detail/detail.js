@@ -1,6 +1,7 @@
 const regeneratorRuntime = require('../../libs/runtime');
+let moment = require('../../libs/moment.min');
 let observer = require('../../libs/observer').observer;
-let toJS = require('../../libs/mobx').toJS;
+let toJS = require('../../libs/mobx.min').toJS;
 let {combine} = require('../../libs/combine');
 let mediaController = require('../../components/mediaController/mediaController');
 const app = getApp();
@@ -22,10 +23,13 @@ let page = {
             wx.setNavigationBarTitle({
               title: programme.title
             });
+            programme.pubDate = moment(programme.pubDate).format("YYYY-MM-DD HH:mm:ss");
             this.setData({
                 programme
             });
-            this.showMediaController && this.showMediaController(programme);
+            if (programme.type === "media") {
+                this.showMediaController && this.showMediaController(programme);
+            }
         } catch (e) {
             wx.showToast({
                 title: '节目获取失败',

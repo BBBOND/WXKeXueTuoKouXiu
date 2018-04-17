@@ -1,5 +1,5 @@
 const regeneratorRuntime = require('../libs/runtime');
-let extendObservable = require('../libs/mobx').extendObservable;
+let extendObservable = require('../libs/mobx.min').extendObservable;
 let { getCount, searchProgramme, auth, userInfoReq, updateProfileReq } = require('../service/request');
 
 /** ================= 初始化值 ================== **/

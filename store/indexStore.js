@@ -1,6 +1,6 @@
 const regeneratorRuntime = require('../libs/runtime');
-let extendObservable = require('../libs/mobx').extendObservable;
-let moment = require('../libs/moment');
+let extendObservable = require('../libs/mobx.min').extendObservable;
+let moment = require('../libs/moment.min');
 let {searchProgramme, getProgrammeReq} = require('../service/request');
 const app = getApp();
 
@@ -88,6 +88,7 @@ class IndexStore {
             bam.onStop(() => {
                 this.playState = 3;
                 console.log("onStop");
+                this.currentProgramme = undefined
             });
             bam.onWaiting(() => {
                 this.playState = 2;
@@ -96,6 +97,7 @@ class IndexStore {
             bam.onError((e) => {
                 this.playState = -1;
                 console.log("onError",e);
+                this.currentProgramme = undefined
             })
         } else {
             bam.play();
@@ -106,6 +108,11 @@ class IndexStore {
         const bam = wx.getBackgroundAudioManager();
         bam.pause();
     };
+
+    stop = () => {
+        const bam = wx.getBackgroundAudioManager();
+        bam.stop();
+    }
 }
 
 module.exports = {

@@ -3,7 +3,6 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin-bottom: 128rpx;
 }
 
@@ -15,9 +14,16 @@
     font-weight: bold;
 }
 
+.container .pub-date {
+    color: #9B9B9B;
+    font-size: 24rpx;
+    padding: 10rpx 20rpx;
+}
+
 .container .des {
     color: #494949;
     font-size: 32rpx;
     padding: 0 20rpx;
     margin-top: 6rpx;
+    margin-bottom: 30rpx;
 }

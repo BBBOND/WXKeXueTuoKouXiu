@@ -1,7 +1,6 @@
 <view class="container">
-    <view class="title">
-        {{programme.title}}
-    </view>
+    <view class="title">{{programme.title}}</view>
+    <view class="pub-date">{{programme.pubDate}}</view>
     <rich-text class="des" nodes="{{programme.description}}"/>
 
     <include src="../../components/mediaController/mediaController.wxml"></include>

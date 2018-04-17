@@ -1,4 +1,4 @@
-let mobx = require('./mobx');
+let mobx = require('./mobx.min');
 
 const settingStoreAutoRun = (key, store, whiteList) => {
   // 将缓存塞入store
